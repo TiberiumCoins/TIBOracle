@@ -1,0 +1,27 @@
+{
+  "name": "ZTOracle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "oracle.js",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "coins": "^2.1.0",
+    "lotion": "^0.1.9",
+    "secp256k1": "^3.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexMog/ZTOracle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexMog/ZTOracle/issues"
+  },
+  "homepage": "https://github.com/AlexMog/ZTOracle"
+}
