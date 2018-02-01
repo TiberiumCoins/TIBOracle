@@ -2,13 +2,45 @@ let { getSigHash } = require('coins')
 let { sign, publicKeyCreate} = require('secp256k1')
 let fs = require('fs')
 let { post } = require('axios')
+let TwitchBot = require('twitch-bot')
 
+let BotConfig = require('./bot')
 let privkeyHex = fs.readFileSync('./privkey')
 let privkey = Buffer.from(privkeyHex.toString(), 'hex')
 
 let oneTIB = 1e8
 let founderAddress = 'BFaoFeHNCcrczFyvaEWpZ7EBAbNEewGzC'
 let founderPercent = 1
+
+let Bot = new TwitchBot(BotConfig);
+
+let AddressBook = require('./address-book.json')
+
+Bot.on('join', () => {
+	Bot.on('message', chatter => {
+		if (chatter.message.startsWith("!address ")) {
+			var address = chatter.message.replace("!address ", "");
+			if (address.length == 0) Bot.say(chatter.display_name + " No adress found.");
+			else {
+				AdressBook[chatter.user_id] = adress;
+				Bot.say(chatter.display_name + " Address registered!");
+				fs.writeFile("./address-book.json", JSON.stringify(AddressBook), 'utf8', function (err) {
+					if (err) {
+						console.log("ERROR WHILE SAVING");
+						console.log(err);
+					}
+				})
+			}
+		}
+	});
+
+	Bot.on('subscription', event => {
+		if (AdressBook[event.user_id]) {
+			sendTo(AdressBook[event.user_id], 5);
+			Bot.say(event.display_name + " Thanks for subbing! You've winned 5 TIBs!");
+		}
+	});
+});
 
 function sendTo(address, amount) {
     signAndSendTx(generateTx(address, amount))
@@ -45,7 +77,3 @@ function signAndSendTx(tx) {
   post('http://localhost:3000/txs', tx)
     .then((res) => console.log(res.data.result))
 }
-
-console.log("PubKey: " + publicKeyCreate(privkey).toString('hex'))
-
-sendTo("MZSWCCodwDqzaSQayhz8gz2kisRJg7Eqq", 1)
