@@ -18,35 +18,35 @@ let AddressBook = require('./address-book.json')
 
 Bot.on('join', () => {
     console.log("Joined channel!")
-    Bot.on('message', chatter => {
-	    if (chatter.message.startsWith("!address ")) {
-			var address = chatter.message.replace("!address ", "");
-			if (address.length == 0) Bot.say(chatter.display_name + " No address found.");
-			else {
-				AddressBook[chatter.user_id] = address;
-				Bot.say(chatter.display_name + " Address registered!");
-				fs.writeFile("./address-book.json", JSON.stringify(AddressBook), 'utf8', function (err) {
-					if (err) {
-						console.log("ERROR WHILE SAVING");
-						console.log(err);
-					}
-				})
-			}
-		} else if (chatter.message.startsWith("!key")) {
-			if (AddressBook[chatter.user_id]) Bot.say(chatter.display_name + " your key: " + AddressBook[chatter.user_id]);
-			else Bot.say(chattr.display_name + " you haven't registered any key.");
+});
+Bot.on('message', chatter => {
+    if (chatter.message.startsWith("!address ")) {
+		var address = chatter.message.replace("!address ", "");
+		if (address.length == 0) Bot.say(chatter.display_name + " No address found.");
+		else {
+			AddressBook[chatter.user_id] = address;
+			Bot.say(chatter.display_name + " Address registered!");
+			fs.writeFile("./address-book.json", JSON.stringify(AddressBook), 'utf8', function (err) {
+				if (err) {
+					console.log("ERROR WHILE SAVING");
+					console.log(err);
+				}
+			})
 		}
-	});
+	} else if (chatter.message.startsWith("!key")) {
+		if (AddressBook[chatter.user_id]) Bot.say(chatter.display_name + " your key: " + AddressBook[chatter.user_id]);
+		else Bot.say(chattr.display_name + " you haven't registered any key.");
+	}
+});
 
-	Bot.on('subscription', event => {
-		if (AddressBook[event.user_id]) {
-			sendTo(AddressBook[event.user_id], 5);
-			Bot.say(event.display_name + " Thanks for subbing! You won 5 TIBs!");
-		}
+Bot.on('subscription', event => {
+	if (AddressBook[event.user_id]) {
+		sendTo(AddressBook[event.user_id], 5);
+		Bot.say(event.display_name + " Thanks for subbing! You won 5 TIBs!");
+	}
 
-		Bot.say("To celebrate this sub, everyone wins 0.001 TIBs!")
-		for (var key in AddressBook) sendTo(AddressBook[key], 0.001);
-	});
+	Bot.say("To celebrate this sub, everyone wins 0.001 TIBs!")
+	for (var key in AddressBook) sendTo(AddressBook[key], 0.001);
 });
 
 function sendTo(address, amount) {
