@@ -27,7 +27,7 @@ async function main() {
 
 	state = await client.getState();
 
-	setInterval(function() {
+	setInterval(async function() {
 		state = await client.getState();
 	}, 5000);
 
@@ -35,7 +35,7 @@ async function main() {
 	    console.log("Joined channel!")
 	});
 
-	Bot.on('message', chatter => {
+	Bot.on('message', async chatter => {
 	    if (chatter.message.startsWith("!address ")) {
 			var address = chatter.message.replace("!address ", "");
 			if (address.length == 0) Bot.say(chatter.display_name + " No address found.");
@@ -55,7 +55,7 @@ async function main() {
 		} else if (chatter.message.startsWith("!money")) {
 			if (AddressBook[chatter.user_id]) {
 				var money = state.accounts[AddressBook[chatter.user_id]];
-				Bot.say(chatter.display_name + " your money: " + (money ? money : 0));
+				Bot.say(chatter.display_name + " your money: " + (money ? money.balance / 1e8 : 0) + " TIB");
 			}
 			else Bot.say(chattr.display_name + " you haven't registered any key.");
 		}
