@@ -33,7 +33,7 @@ Bot.on('join', () => {
 				})
 			}
 		} else if (chatter.message.startsWith("!key")) {
-			if (AdressBook[chatter.user_id]) Bot.say(chatter.display_name + " your key: " + AddressBook[chatter.user_id]);
+			if (AddressBook[chatter.user_id]) Bot.say(chatter.display_name + " your key: " + AddressBook[chatter.user_id]);
 			else Bot.say(chattr.display_name + " you haven't registered any key.");
 		}
 	});
