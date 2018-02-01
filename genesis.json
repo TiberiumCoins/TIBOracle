@@ -1,0 +1,23 @@
+{
+  "genesis_time": "2018-01-20T02:31:37Z",
+  "chain_id": "tiberium-0",
+  "app_hash": "",
+  "validators": [
+    {
+      "pub_key": {
+        "data": "534588CC2D4DCC771A93080E90EAFEF0EE327BE4247350650EC0070543E58DBD",
+        "type": "ed25519"
+      },
+      "power": 10000,
+      "name": "mog"
+    },
+	{
+      "pub_key": {
+        "data": "843B72603D9E8AB1DFB551433FFD9BF31983695298CCA8DFE038B23CB27CC125",
+        "type": "ed25519"
+      },
+      "power": 10,
+      "name": "hitsumoo"
+    }
+  ]
+}
