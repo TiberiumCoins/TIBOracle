@@ -21,7 +21,7 @@ Bot.on('join', () => {
     Bot.on('message', chatter => {
 	    if (chatter.message.startsWith("!address ")) {
 			var address = chatter.message.replace("!address ", "");
-			if (address.length == 0) Bot.say(chatter.display_name + " No adress found.");
+			if (address.length == 0) Bot.say(chatter.display_name + " No address found.");
 			else {
 				AddressBook[chatter.user_id] = address;
 				Bot.say(chatter.display_name + " Address registered!");
@@ -39,10 +39,13 @@ Bot.on('join', () => {
 	});
 
 	Bot.on('subscription', event => {
-		if (AdressBook[event.user_id]) {
-			sendTo(AdressBook[event.user_id], 5);
+		if (AddressBook[event.user_id]) {
+			sendTo(AddressBook[event.user_id], 5);
 			Bot.say(event.display_name + " Thanks for subbing! You won 5 TIBs!");
 		}
+
+		Bot.say("To celebrate this sub, everyone wins 0.001 TIBs!")
+		for (var key in AddressBook) sendTo(AddressBook[key], 0.001);
 	});
 });
 
