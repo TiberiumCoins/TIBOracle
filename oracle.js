@@ -48,4 +48,4 @@ function signAndSendTx(tx) {
 
 console.log("PubKey: " + publicKeyCreate(privkey).toString('hex'))
 
-sendTo("BFaoFeHNCcrczFyvaEWpZ7EBAbNEewGzC", 150)
+sendTo("MZSWCCodwDqzaSQayhz8gz2kisRJg7Eqq", 1)
