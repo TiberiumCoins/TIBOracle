@@ -17,12 +17,13 @@ let Bot = new TwitchBot(BotConfig);
 let AddressBook = require('./address-book.json')
 
 Bot.on('join', () => {
-	Bot.on('message', chatter => {
-		if (chatter.message.startsWith("!address ")) {
+    console.log("Joined channel!")
+    Bot.on('message', chatter => {
+	    if (chatter.message.startsWith("!address ")) {
 			var address = chatter.message.replace("!address ", "");
 			if (address.length == 0) Bot.say(chatter.display_name + " No adress found.");
 			else {
-				AdressBook[chatter.user_id] = adress;
+				AddressBook[chatter.user_id] = address;
 				Bot.say(chatter.display_name + " Address registered!");
 				fs.writeFile("./address-book.json", JSON.stringify(AddressBook), 'utf8', function (err) {
 					if (err) {
@@ -37,7 +38,7 @@ Bot.on('join', () => {
 	Bot.on('subscription', event => {
 		if (AdressBook[event.user_id]) {
 			sendTo(AdressBook[event.user_id], 5);
-			Bot.say(event.display_name + " Thanks for subbing! You've winned 5 TIBs!");
+			Bot.say(event.display_name + " Thanks for subbing! You won 5 TIBs!");
 		}
 	});
 });
