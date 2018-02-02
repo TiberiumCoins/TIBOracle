@@ -51,13 +51,13 @@ async function main() {
 			}
 		} else if (chatter.message.startsWith("!key")) {
 			if (AddressBook[chatter.user_id]) Bot.say(chatter.display_name + " your key: " + AddressBook[chatter.user_id]);
-			else Bot.say(chattr.display_name + " you haven't registered any key.");
+			else Bot.say(chatter.display_name + " you haven't registered any key.");
 		} else if (chatter.message.startsWith("!money")) {
 			if (AddressBook[chatter.user_id]) {
 				var money = state.accounts[AddressBook[chatter.user_id]];
 				Bot.say(chatter.display_name + " your money: " + (money ? money.balance / 1e8 : 0) + " TIB");
 			}
-			else Bot.say(chattr.display_name + " you haven't registered any key.");
+			else Bot.say(chatter.display_name + " you haven't registered any key.");
 		}
 	});
 
